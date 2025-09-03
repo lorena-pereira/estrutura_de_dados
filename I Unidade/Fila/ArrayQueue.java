@@ -3,33 +3,71 @@ public class ArrayQueue implements Queuable {
     private int head;
     private int tail;
 
-     @Override
-    public void enqueue(Object data) {
+    public ArrayQueue() {
+        this(10);
+    }
+
+    public ArrayQueue(int length) {
+        Object[] data = new Object[length];
+        head = 0;
+        tail = -1;
     }
 
     @Override
+    public void enqueue (Object data) {
+        if(isFull()) {
+            System.err.println("Queue is full!");
+        }
+        else {
+            tail++;
+            this.data[tail] = data;;
+        }
+    }
+    
+    @Override
     public Object dequeue() {
-        return null;
+        Object aux = null;
+        if(isEmpty()) {
+            System.err.println("Queue is empty!");
+        }
+        else {
+            aux = data[head++];
+        }
+        return aux;
     }
 
     @Override
     public Object front() {
-        return null;
+        Object aux = null;
+        if(isEmpty()) {
+            System.err.println("Queue is empty");
+        }
+        else {
+            aux = data[head];
+        }
+        return aux;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return (head - 1 == tail);
     }
 
     @Override
     public boolean isFull() {
-        return false;
+        return (tail == data.length - 1);
     }
 
-    @Override
     public String print() {
-        return null;
-    }
+		String resultado = "";
+		for(int i = head; i <= tail; i++) {
+			resultado += data[i];
+            if (i != tail) {
+				resultado += ",";
+			}
+		}
+		return resultado + "[ " + resultado + "]";
+	}
+
     
 }

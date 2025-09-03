@@ -3,8 +3,8 @@ public interface Queuable {
     Object dequeue();
     Object front();
 
-    Boolean isEmpty();
-    Boolean isFull();
+    boolean isEmpty();
+    boolean isFull();
     String print();
     
 }
