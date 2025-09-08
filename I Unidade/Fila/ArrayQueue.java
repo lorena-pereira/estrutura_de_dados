@@ -8,7 +8,7 @@ public class ArrayQueue implements Queuable {
     }
 
     public ArrayQueue(int length) {
-        Object[] data = new Object[length];
+        this.data = new Object[length];
         head = 0;
         tail = -1;
     }
