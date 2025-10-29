@@ -8,7 +8,7 @@ package com.dao.repository;
  * @version 1.0
  * @since 20/10/2025
  */
-public interface Stackable<T> {
+public interface DEQueable<T> {
 	
 	/**
 	 * Adiciona um elemento ao início da fila

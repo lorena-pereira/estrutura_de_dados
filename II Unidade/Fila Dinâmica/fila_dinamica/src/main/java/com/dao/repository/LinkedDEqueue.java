@@ -3,20 +3,22 @@ package com.dao.repository;
 import java.util.NoSuchElementException;
 
 /**
- * Implementação de uma Fila Dinâmica
+ * Implementação de uma Fila com dupla terminação dinâmica 
  * 
  * @param <T> o tipo de elementos armazenados na Fila
  * 
  * @author Lorena Pereira Oliveira
  * @version 1.0
  * @since 20/10/2025
+ * @see DoubleNode
+ * @see DEQuable
  */
 
-public class LinkedDEqueue {
+public class LinkedDEqueue<T> {
     private int amount;
     private int capacity;
     private DoubleNode<T> head;
-    private Double Node<T>tail;
+    private Double Node<T> tail;
 
     /** Construtor com o máximo de elementos com 10 */
     public LinkedDEqueue() {
@@ -44,11 +46,11 @@ public class LinkedDEqueue {
     @Override
     public void beginEnqueue(T data) {
         if (isFull()) {
-            throw new NoSuchElementException("Stack is full!");
+            throw new NoSuchElementException("Queue is full!");
         }
         DoubleNode<T> newNode = new DoubleNode<>();
         newNode.setData(data);
-        if (isEMpty()) {
+        if (isEmpty()) {
             tail = newNode;
             head = newNode;
         }
@@ -57,6 +59,7 @@ public class LinkedDEqueue {
             head.setPrevious(newNode);
             head = head.getPrevious();
         }
+        amount++;
     }
 
     /**
@@ -68,7 +71,7 @@ public class LinkedDEqueue {
     @Override
     public void endEnqueue(T data) {
         if (isFull()) {
-            throw new NoSuchElementException("Stack is full!");
+            throw new NoSuchElementException("Queue is full!");
         }
         DoubleNode<T> newNode = new DoubleNode<>();
         newNode.setData(data);
@@ -92,10 +95,10 @@ public class LinkedDEqueue {
     @Override
     public T beginDequeue() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Stack is empty!");
+            throw new NoSuchElementException("Queue is empty!");
         }
         T auxData = head.getData();
-        head = head.setNext();
+        head = head.getNext();
         amount--;
         if (!isEmpty()) {
             head.setPrevious(null);
@@ -114,7 +117,7 @@ public class LinkedDEqueue {
     @Override
     public T endDequeue() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Stack is empty!");
+            throw new NoSuchElementException("Queue is empty!");
         }
         amount--;
         T auxData = tail.getData();
@@ -136,7 +139,7 @@ public class LinkedDEqueue {
     @Override
     public T front() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Stack is empty!");
+            throw new NoSuchElementException("Queue is empty!");
         }
 
         return head.getData();
@@ -150,7 +153,7 @@ public class LinkedDEqueue {
     @Override
     public T rear() {
         if (isEmpty()) {
-            throw new NoSuchElementException("Stack is empty!");
+            throw new NoSuchElementException("Queue is empty!");
         }
 
         return tail.getData();
@@ -183,10 +186,10 @@ public class LinkedDEqueue {
 	 */
     public String printFrontToRear() {
         String result = "";
-        auxPointer = head;
-        for(int i = 0; i < amount; i++)
+        DoubleNode<T> auxPointer = head;
+        for(int i = 0; i < amount; i++) {
             result += auxPointer.getData();
-            if(i != amount-1) {
+            if(i != amount - 1) {
                 result += ",";
             }
             auxPointer = auxPointer.getNext();    
@@ -202,14 +205,15 @@ public class LinkedDEqueue {
 	 */
     public String printRearToFront() {
         String result = "";
-        auxPointer = tail;
-        for(int i = 0; i < amount; i++){
+        DoubleNode<T> auxPointer = tail;
+        for(int i = 0; i < amount; i++) {
             result += auxPointer.getData();
             if(i != amount-1) {
                 result += ",";
             }
             auxPointer = auxPointer.getPrevious();    
         }
-        return  "[]" + result + "]";
-    
+        return  "[" + result + "]";
+    }
+
 }
