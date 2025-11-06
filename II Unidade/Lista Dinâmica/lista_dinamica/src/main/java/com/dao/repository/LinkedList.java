@@ -7,7 +7,7 @@ package com.dao.repository;
  * @version 1.0
  * @since 20/10/2025
  * @see DoubleNode
- * @see Listabel
+ * @see Listable
  */
 
 public class LinkedList<T> implements Listable<T> {
@@ -99,6 +99,8 @@ public class LinkedList<T> implements Listable<T> {
             if(proximo != null) {
                 proximo.setPrevious(newData);
             }
+            aux.setNext(newData);
+            newData.setPrevious(aux);
             amount++;
         }
     }
@@ -148,7 +150,7 @@ public class LinkedList<T> implements Listable<T> {
             temp[i] = aux.getData();
             aux = aux.getNext();
         }
-        return (T[]) temp;
+        return temp;
     }
     
     /**
@@ -220,7 +222,7 @@ public class LinkedList<T> implements Listable<T> {
             tail = tail.getPrevious();
         }
         amount--;
-        return aux.getData();
+        return data;
     }
 
     /**
