@@ -7,7 +7,6 @@ import java.util.NoSuchElementException;
  * 
  * @author Lorena Pereira Oliveira
  * @version 1.0
- * @since 06/10/2025
  */
 
 public class LinkedStack<T> implements Stackable<T>{
@@ -55,10 +54,16 @@ public class LinkedStack<T> implements Stackable<T>{
         if(isEmpty()) {
             throw new NoSuchElementException("Stack is empty!");
         }
-        numberElements--;
+       
         T auxData = topPointer.getData();
-        topPointer = topPointer.getPrevious();
-        topPointer.setNext(null);
+        if (topPointer.getPrevious() == null) {
+            topPointer = null;
+        } else {
+            topPointer = topPointer.getPrevious();
+            topPointer.setNext(null);
+        }
+        
+        numberElements--;
         return auxData;
     }
 
